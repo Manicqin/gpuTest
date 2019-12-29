@@ -7,7 +7,6 @@ is_gpu_available = tf.test.is_gpu_available()
 message = "GPU available: {}".format(is_gpu_available)
 print(message)
 
-os.mkdir('run-result')
 with open('run-result/output.txt', 'w') as f:
     f.write(message)
 
