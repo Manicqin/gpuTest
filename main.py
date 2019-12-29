@@ -7,8 +7,8 @@ is_gpu_available = tf.test.is_gpu_available()
 message = "GPU available: {}".format(is_gpu_available)
 print(message)
 
-os.mkdir("run-results")
-with open('run-results/output.txt', 'w') as f:
+os.mkdir('run-result')
+with open('run-result/output.txt', 'w') as f:
     f.write(message)
 
 mnist = tf.keras.datasets.mnist
