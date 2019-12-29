@@ -1,12 +1,14 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import tensorflow as tf
+import os
 
 is_gpu_available = tf.test.is_gpu_available()
 message = "GPU available: {}".format(is_gpu_available)
 print(message)
 
-with open('output.txt', 'w') as f:
+os.mkdir("run-results")
+with open('run-results/output.txt', 'w') as f:
     f.write(message)
 
 mnist = tf.keras.datasets.mnist
