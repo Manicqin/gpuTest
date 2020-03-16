@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import subprocess
 import tensorflow as tf
 import os
 
@@ -7,24 +8,35 @@ is_gpu_available = tf.test.is_gpu_available()
 message = "GPU available: {}".format(is_gpu_available)
 print(message)
 
+try:
+    os.mkdir('run-result')
+except OSError:
+    pass
+
 with open('run-result/output.txt', 'w') as f:
     f.write(message)
 
-mnist = tf.keras.datasets.mnist
+    if is_gpu_available:
 
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
-x_train, x_test = x_train / 255.0, x_test / 255.0
-
-model = tf.keras.models.Sequential([
-  tf.keras.layers.Flatten(input_shape=(28, 28)),
-  tf.keras.layers.Dense(128, activation='relu'),
-  tf.keras.layers.Dropout(0.2),
-  tf.keras.layers.Dense(10, activation='softmax')
-])
-
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
+        gpu_count = str(subprocess.check_output(["nvidia-smi", "--query-gpu=count", "--format=csv,noheader" ]), "utf-8")
+        gpu_name = str(subprocess.check_output(["nvidia-smi", "--query-gpu=name", "--format=csv,noheader" ]), "utf-8")
+        gpu_memory = str(subprocess.check_output(["nvidia-smi", "--query-gpu=memory.total", "--format=csv,noheader" ]), "utf-8")
 
 
+        message = "Test Summary"
+        print (message)
+        f.write(message)
+
+        message = "GPU count: {}".format(gpu_count)
+        print (message)
+        f.write(message)
+
+        message = "GPU name: {}".format(gpu_name)
+        print (message)
+        f.write(message)
+
+        message = "GPU memory: {}".format(gpu_memory)
+        print (message)
+        f.write(message)    
+    
 print("DONE")
