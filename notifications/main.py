@@ -1,5 +1,7 @@
 import disco_events
 import time
+
+time.sleep(15)
 try:
     disco_events.setJobInfo('jobId', 'dispatchId')
 
