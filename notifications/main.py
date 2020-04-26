@@ -3,7 +3,7 @@ import time
 
 time.sleep(60)
 try:
-    disco_events.setJobInfo('jobId', 'dispatchId')
+    disco_events.setJobInfo('a', 'b')
 
     for i in range(100):
     
